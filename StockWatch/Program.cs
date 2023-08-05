@@ -1,7 +1,12 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using StockWatch.Domain;
+using System.Net.Http;
+using System.Net.Http.Json;
 
-namespace StockWatch {
-    class Program {
+namespace StockWatch
+{
+    public class Program {
         static void Main(string[] args) {
             Console.WriteLine("[StockWatch]: Bem vindo ao programa de observação de ativos");
             Configuration? configuration = new Configuration();
@@ -17,13 +22,27 @@ namespace StockWatch {
                 return;
             }
 
+            HttpClient httpClient = new HttpClient();
+
             try {
-                EmailSender.SendEmail(configuration, "Test Email", "Hey this is a test email from stock watch");
-                Console.Write($"[StockWatch]: email enviado para o destino {configuration.OutputEmail})");
+                var test = httpClient.GetAsync("https://brapi.dev/api/quote/MGLU3?range=1d&interval=1d&fundamental=true&dividends=true").Result;
+                var jsonString = test.Content.ReadAsStringAsync().Result;
+                BrapiApiResponse brapiApiResponse = JsonConvert.DeserializeObject<BrapiApiResponse>(jsonString);
+                Console.WriteLine($"[StockWatch]: O valor atual do ativo é de R$ {brapiApiResponse.Results.FirstOrDefault().RegularMarketPrice}");
+            } 
+            catch(Exception ex) {
+                Console.WriteLine($"[StockWatch]: ERRO - Erro ao acessar API de ativos");
             }
-            catch (Exception ex) {
-                Console.WriteLine($"[StockWatch]: ERRO - Erro ao enviar email: {ex.GetBaseException().Message}");
-            }                  
+
+            //try {
+            //    EmailSender.SendEmail(configuration, "Test Email", "Hey this is a test email from stock watch");
+            //    Console.Write($"[StockWatch]: email enviado para o destino {configuration.OutputEmail})");
+            //}
+            //catch (Exception ex) {
+            //    Console.WriteLine($"[StockWatch]: ERRO - Erro ao enviar email: {ex.GetBaseException().Message}");
+            //}                  
         }
     }
+
+   
 }

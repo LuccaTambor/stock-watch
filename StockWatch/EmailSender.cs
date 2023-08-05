@@ -1,6 +1,8 @@
 ﻿using EASendMail;
+using StockWatch.Domain;
 
-namespace StockWatch {
+namespace StockWatch
+{
     public static class EmailSender {
 
         public static void SendEmail(Configuration configuration, string subject, string messageBody) {
