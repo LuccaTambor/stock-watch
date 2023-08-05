@@ -5,6 +5,12 @@ namespace StockWatch
 {
     public static class EmailSender {
 
+        /// <summary>
+        /// Sends an email using the <see cref="Configuration"/> of the program
+        /// </summary>
+        /// <param name="configuration"> The <see cref="Configuration"/> of the program </param>
+        /// <param name="subject"> The subject of the email </param>
+        /// <param name="messageBody"> The message body of the email </param>
         public static void SendEmail(Configuration configuration, string subject, string messageBody) {
             // Setting up SMTP email server
             SmtpServer oServer = new SmtpServer(configuration.SmtpServer) {
