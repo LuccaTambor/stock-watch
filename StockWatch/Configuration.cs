@@ -1,6 +1,8 @@
 ﻿namespace StockWatch {
     public class Configuration {
-        public string Email { get; set; }
-        public string ApiKey { get; set; }
+        public string OutputEmail { get; set; }
+        public string OutlookEmail { get; set; }
+        public string OutlookPassword { get; set;}
+        public string SmtpServer { get; set; }
     }
 }

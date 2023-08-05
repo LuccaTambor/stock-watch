@@ -1,4 +1,6 @@
 {
-  "email": "teste@gmail.com",
-  "apiKey": "dhaudhudausdhaushduas"
+  "outputEmail": "lucca.tambor@outlook.com",
+  "outlookEmail": "lucca_stockwatch@outlook.com",
+  "outlookPassword": "azSFrt3Cq5",
+  "smtpServer": "smtp.office365.com"
 }
